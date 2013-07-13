@@ -47,12 +47,12 @@ $(function () {
 		});
         for (var i = 0; i < records.length; i++) {
 			var record = records[i];
-			if(record.get('taskwhen') < new Date() && !record.get('completed')) {
+			if(record.get('taskwhen') < new Date() /*&& !record.get('completed')*/) {
                 showNotification(record.get('taskname'));
             } else {
-                if(record.get('taskwhen') > new Date()) {
+                /*if(record.get('taskwhen') > new Date()) {
                     break; //termino
-                }
+                }*/
             }
 		}
         
@@ -165,7 +165,7 @@ $(function () {
 	$('#addForm').submit(function (e) {
 		e.preventDefault();
 		if (_taskNameInput.val().length > 0) {
-            var date = new Date();
+            var date = new Date(_taskWhenInput.val());
 			insertTask(_taskNameInput.val(), date);
 			_taskNameInput.val('');
 		}
