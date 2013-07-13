@@ -1,4 +1,4 @@
-// Insert your Dropbox app key here:
+﻿// Insert your Dropbox app key here:
 var DROPBOX_APP_KEY = 'rgvoh12bwuk0ye3';
 
 // Exposed for easy access in the browser console.
