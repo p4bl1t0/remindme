@@ -8,6 +8,27 @@ var _taskList = $('#tasks');
 var _taskNameInput = $('#task-name');
 var _taskWhenInput = $('#task-when');
 
+function authorizeNotification() {
+    Notification.requestPermission(function(perm) {
+        console.log(perm);
+    });
+}
+
+function showNotification() {
+    var notification = new Notification("This is a title", {
+        dir: "auto",
+        lang: "",
+        body: "This is a notification body",
+        tag: "sometag",
+    });
+
+    // notification.onclose = …
+    // notification.onshow = …
+    // notification.onerror = …
+}
+authorizeNotification();
+showNotification();
+
 $(function () {
 	// Insert a new task record into the table.
 	function insertTask(text, date) {
