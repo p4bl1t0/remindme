@@ -1,4 +1,4 @@
-// Insert your Dropbox app key here:
+ï»¿// Insert your Dropbox app key here:
 var DROPBOX_APP_KEY = 'rgvoh12bwuk0ye3';
 
 // Exposed for easy access in the browser console.
@@ -22,9 +22,9 @@ function showNotification() {
         tag: "sometag",
     });
 
-    // notification.onclose = …
-    // notification.onshow = …
-    // notification.onerror = …
+    // notification.onclose = â€¦
+    // notification.onshow = â€¦
+    // notification.onerror = â€¦
 }
 authorizeNotification();
 showNotification();
