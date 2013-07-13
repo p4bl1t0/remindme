@@ -26,7 +26,7 @@ function showNotification(text) {
     // notification.onerror = …
 }
 authorizeNotification();
-showNotification(text);
+showNotification("remind me iniciado");
 
 $(function () {
 	// Insert a new task record into the table.
