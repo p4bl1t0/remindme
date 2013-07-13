@@ -22,9 +22,9 @@ function showNotification() {
         tag: "sometag",
     });
 
-    // notification.onclose = â€¦
-    // notification.onshow = â€¦
-    // notification.onerror = â€¦
+    // notification.onclose = …
+    // notification.onshow = …
+    // notification.onerror = …
 }
 authorizeNotification();
 showNotification();
