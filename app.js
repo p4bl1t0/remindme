@@ -1,4 +1,4 @@
-﻿// Insert your Dropbox app key here:
+// Insert your Dropbox app key here:
 var DROPBOX_APP_KEY = 'rgvoh12bwuk0ye3';
 
 // Exposed for easy access in the browser console.
@@ -13,12 +13,11 @@ function authorizeNotification() {
         console.log(perm);
     });
 }
-
-function showNotification() {
+function showNotification(text) {
     var notification = new Notification("This is a title", {
         dir: "auto",
         lang: "",
-        body: "This is a notification body",
+        body: text,
         tag: "sometag",
     });
 
@@ -27,7 +26,7 @@ function showNotification() {
     // notification.onerror = …
 }
 authorizeNotification();
-showNotification();
+showNotification(text);
 
 $(function () {
 	// Insert a new task record into the table.
@@ -39,7 +38,25 @@ $(function () {
 			completed: false
 		});
 	}
-
+    setInterval(function() {
+        var records = taskTable.query();
+        records.sort(function (taskA, taskB) {
+			if (taskA.get('taskwhen') < taskB.get('taskwhen')) return -1;
+			if (taskA.get('taskwhen') > taskB.get('taskwhen')) return 1;
+			return 0;
+		});
+        for (var i = 0; i < records.length; i++) {
+			var record = records[i];
+			if(record.get('taskwhen') < new Date() && !record.get('completed')) {
+                showNotification(record.get('taskname'));
+            } else {
+                if(record.get('taskwhen') > new Date()) {
+                    break; //termino
+                }
+            }
+		}
+        
+    }, 1000 * 15); //Cada 15 segundos chequeo si una tarea venció
 	// updateList will be called every time the table changes.
 	function updateList() {
 		_taskList.empty();
