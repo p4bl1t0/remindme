@@ -8,6 +8,25 @@ var _taskList = $('#tasks');
 var _taskNameInput = $('#task-name');
 var _taskWhenInput = $('#task-when');
 
+this.cache.notifications = window.webkitNotifications
+if(this.cache.notifications) {
+    console.log("Yay! Notifications are supported on this browser.");
+} else {
+    console.log("Sorry. Notifications aren't supported on this browser.");
+}
+if (this.cache.notifications.checkPermission() == 0) {
+                sendAlert();
+} else {
+    this.cache.notifications.requestPermission(function() {
+        if (this.cache.notifications.checkPermission() == 0) {
+            sendAlert();
+        }
+    });
+}
+function sendAlert () {
+    var notification = window.webkitNotifications.createNotification("aaa", "aaa", "aaa");
+    notification.show();
+}
 $(function () {
 	// Insert a new task record into the table.
 	function insertTask(text, date) {
