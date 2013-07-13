@@ -4,12 +4,16 @@ var DROPBOX_APP_KEY = 'xoit9j3uwj9vmdv';
 // Exposed for easy access in the browser console.
 var client = new Dropbox.Client({key: DROPBOX_APP_KEY});
 var taskTable;
+var _taskList = $('#tasks');
+var _taskNameInput = $('#task-name');
+var _taskWhenInput = $('#task-when');
 
 $(function () {
 	// Insert a new task record into the table.
-	function insertTask(text) {
+	function insertTask(text, date) {
 		taskTable.insert({
 			taskname: text,
+            taskwhen: date,
 			created: new Date(),
 			completed: false
 		});
@@ -17,7 +21,7 @@ $(function () {
 
 	// updateList will be called every time the table changes.
 	function updateList() {
-		$('#tasks').empty();
+		_taskList.empty();
 
 		var records = taskTable.query();
 
@@ -31,14 +35,18 @@ $(function () {
 		// Add an item to the list for each task.
 		for (var i = 0; i < records.length; i++) {
 			var record = records[i];
-			$('#tasks').append(
+			_taskList.append(
 				renderTask(record.getId(),
 					record.get('completed'),
-					record.get('taskname')));
+					record.get('taskname'),
+                    record.get('taskwhen')     
+                    ));
 		}
 
 		addListeners();
-		$('#newTask').focus();
+		_taskNameInput.focus();
+        var date = new Date((new Date()).getTime() + 2*60000); //2 = 2 minutos
+        _taskWhenInput.val(date.toString());
 	}
 
 	// The login button will start the authentication process.
@@ -86,14 +94,14 @@ $(function () {
 	}
 
 	// Render the HTML for a single task.
-	function renderTask(id, completed, text) {
+	function renderTask(id, completed, text, when) {
 		return $('<li>').attr('id', id).append(
 				$('<button>').addClass('delete').html('&times;')
 			).append(
 				$('<span>').append(
 					$('<button>').addClass('checkbox').html('&#x2713;')
 				).append(
-					$('<span>').addClass('text').text(text)
+					$('<span>').addClass('text').text(text + " - " + when)
 				)
 			)
 			.addClass(completed ? 'completed' : '');
@@ -118,12 +126,13 @@ $(function () {
 	// Hook form submit and add the new task.
 	$('#addForm').submit(function (e) {
 		e.preventDefault();
-		if ($('#newTask').val().length > 0) {
-			insertTask($('#newTask').val());
-			$('#newTask').val('');
+		if (_taskNameInput.val().length > 0) {
+            var date = new Date();
+			insertTask(_taskNameInput.val(), date);
+			_taskNameInput.val('');
 		}
 		return false;
 	});
 
-	$('#newTask').focus();
+	_taskNameInput.focus();
 });
