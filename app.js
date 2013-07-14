@@ -21,9 +21,9 @@ function showNotification(text) {
         tag: "sometag",
     });
 
-    // notification.onclose = …
-    // notification.onshow = …
-    // notification.onerror = …
+    // notification.onclose =
+    // notification.onshow =
+    // notification.onerror =
 }
 authorizeNotification();
 showNotification("remind me iniciado");
@@ -47,7 +47,8 @@ $(function () {
 		});
         for (var i = 0; i < records.length; i++) {
 			var record = records[i];
-			if(record.get('taskwhen') < new Date() /*&& !record.get('completed')*/) {
+			if(record.get('taskwhen') < new Date() && record.get('taskwhen') > new Date((new Date()).getTime() - 0.5*60000) /*&& !record.get('completed')*/) {
+                console.log("notify" + " " + record.get('taskname') );
                 showNotification(record.get('taskname'));
             } else {
                 /*if(record.get('taskwhen') > new Date()) {
