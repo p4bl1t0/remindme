@@ -7,6 +7,9 @@ var taskTable;
 var _taskList = $('#tasks');
 var _taskNameInput = $('#task-name');
 var _taskWhenInput = $('#task-when');
+var beep = new Audio();
+beep.setAttribute("src","sounds/reminder.mp3");
+beep.load();
 
 function authorizeNotification() {
     Notification.requestPermission(function(perm) {
@@ -49,6 +52,7 @@ $(function () {
 			var record = records[i];
 			if(record.get('taskwhen') < new Date() && record.get('taskwhen') > new Date((new Date()).getTime() - 0.5*60000) /*&& !record.get('completed')*/) {
                 console.log("notify" + " " + record.get('taskname') );
+                beep.play();
                 showNotification(record.get('taskname'));
             } else {
                 /*if(record.get('taskwhen') > new Date()) {
