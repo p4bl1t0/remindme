@@ -19,26 +19,32 @@ if(!!beep.canPlayType && beep.canPlayType('audio/wav') != "") {
         beep.load();
     }
 }
-
+var notificationSupported = window.Notification !== undefined;
 function authorizeNotification() {
-    Notification.requestPermission(function(perm) {
-        console.log(perm);
-    });
+    if(notificationSupported) {
+        Notification.requestPermission(function(perm) {
+            console.log(perm);
+        });
+    }
 }
 function showNotification(text) {
-    var notification = new Notification("This is a title", {
-        dir: "auto",
-        lang: "",
-        body: text,
-        tag: "sometag",
-    });
-
-    // notification.onclose =
-    // notification.onshow =
-    // notification.onerror =
+    if(notificationSupported) {
+        var notification = new Notification("This is a title", {
+            dir: "auto",
+            lang: "",
+            body: text,
+            tag: "sometag",
+        });
+    
+        // notification.onclose =
+        // notification.onshow =
+        // notification.onerror =
+    }
 }
-authorizeNotification();
-showNotification("remind me iniciado");
+if(notificationSupported) {
+    authorizeNotification();
+    showNotification("remind me iniciado");
+}
 
 $(function () {
 	// Insert a new task record into the table.
