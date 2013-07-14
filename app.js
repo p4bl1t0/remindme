@@ -8,16 +8,17 @@ var _taskList = $('#tasks');
 var _taskNameInput = $('#task-name');
 var _taskWhenInput = $('#task-when');
 var beep = new Audio();
-if(!!audio.canPlayType && audio.canPlayType('audio/wav;') != "") {
+if(!!beep.canPlayType && beep.canPlayType('audio/wav') != "") {
     //Soporto WAV, vamos a cargarlo
     beep.setAttribute("src","sounds/reminder.wav");
+    beep.load();
 } else {
-    if(!!audio.canPlayType && audio.canPlayType('audio/mp3;') != "") {
+    if(!!beep.canPlayType && beep.canPlayType('audio/mpeg') != "") {
         //Soporto MP3
         beep.setAttribute("src","sounds/reminder.mp3");
+        beep.load();
     }
 }
-beep.load();
 
 function authorizeNotification() {
     Notification.requestPermission(function(perm) {
