@@ -8,7 +8,15 @@ var _taskList = $('#tasks');
 var _taskNameInput = $('#task-name');
 var _taskWhenInput = $('#task-when');
 var beep = new Audio();
-beep.setAttribute("src","sounds/reminder.mp3");
+if(!!audio.canPlayType && audio.canPlayType('audio/wav;') != "") {
+    //Soporto WAV, vamos a cargarlo
+    beep.setAttribute("src","sounds/reminder.wav");
+} else {
+    if(!!audio.canPlayType && audio.canPlayType('audio/mp3;') != "") {
+        //Soporto MP3
+        beep.setAttribute("src","sounds/reminder.mp3");
+    }
+}
 beep.load();
 
 function authorizeNotification() {
