@@ -2,17 +2,26 @@
     window.remindme = window.remindme || {};
     window.remindme.model = {};
     
-    function Task (n, w) {
+    function Task (taskName, whenToDoIt, taskId, isCompleted, whenWasCreated) {
         this.id = 0;
-        this.created = new Date();
-        this.completed = false;
         this.name = "";
-        if(n !== null && n !== undefined) {
-            this.name = n;
-        }
         this.when = new Date();
-        if(w !== null && w !== undefined) {
-            this.when = w;
+        this.completed = false;
+        this.created = new Date();
+        if(taskId !== null && taskId !== undefined) {
+            this.name = taskId;
+        }
+        if(taskName !== null && taskName !== undefined) {
+            this.name = taskName;
+        }
+        if(whenToDoIt !== null && whenToDoIt !== undefined) {
+            this.when = whenToDoIt;
+        }
+        if(isCompleted !== null && isCompleted !== undefined) {
+            this.completed = isCompleted;
+        }
+        if(whenWasCreated !== null && whenWasCreated !== undefined) {
+            this.created = whenWasCreated;
         }
     }
     

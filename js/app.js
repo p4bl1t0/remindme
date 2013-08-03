@@ -92,13 +92,9 @@ $(function () {
 
 		// Add an item to the list for each task.
 		for (var i = 0; i < records.length; i++) {
-			var record = records[i];
-			_taskList.append(
-				renderTask(record.getId(),
-					record.get('completed'),
-					record.get('taskname'),
-                    record.get('taskwhen')     
-                    ));
+			var task = new remindme.model.Task(records[i].get('taskname'),records[i].get('taskwhen'), records[i].getId(), records[i].get('completed'));
+            
+			_taskList.append(remindme.view.render(task));
 		}
 
 		addListeners();
